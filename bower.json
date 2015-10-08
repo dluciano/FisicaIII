@@ -1,0 +1,14 @@
+{
+  "name": "angular-fis3App",
+  "description": "Aplicación para resolver problemas de Física III de INTEC. (Dawlin 'tá quema'o).",
+  "version": "0.0.1",
+  "homepage": "https://github.com/dluciano/FisicaIII",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.4.x",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.1.1",
+    "angular-route": "1.4.x"
+  }
+}

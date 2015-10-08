@@ -1,80 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="fis3App">
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="css/styles.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row clearfix">
-            <div class="col-md-12">
-                <div class="jumbotron">
-                    <h1>Cálculo de problemas físicos en línea</h1>      
-                    <p>Verifique sus resultados de ejercicios ya sean de Fuerza Eléctrica, Campo Eléctrico, o Potencial Eléctrico</p>      
-                 </div>
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-md-2">
-                <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
-                    <li role="presentation" class="active">
-                        <a href="#">Inicio</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="./html/fuerza-electrica.html">Fuerza Eléctrica</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#">Campo Eléctrico</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#">Potencial Eléctrico</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-10">
-                <!--This home page will be in a separated home.html file and will be loaed dynamically-->
-                <div class="row clearfix">
-                    <div class="col-md-4">
-                        <a href="">
-                            <h4 class="text-center">Fuerza Eléctrica</h4>
-                            <img src="http://2.bp.blogspot.com/-b5VDNmqrobI/UASjT2mhZdI/AAAAAAAAAAw/KIAAPcST8Nc/s1600/fuerza+el%25C3%25A9ctrica.png" alt="Fuerza Eléctrica" class="img-thumbnail">
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="">
-                            <h4 class="text-center">Campo Eléctrico</h4>
-                            <img src="http://www-fen.upc.es/wfib/virtualab/marco/dipol.jpg" alt="Fuerza Eléctrica" class="img-thumbnail">
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="">
-                            <h4 class="text-center">Potencial Eléctrico</h4>
-                            <img src="http://laplace.us.es/wiki/images/thumb/e/ed/Potencial-carga.png/300px-Potencial-carga.png" alt="Fuerza Eléctrica" class="img-thumbnail">
-                        </a>
-                    </div>
-                </div>
-                <!---->
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-md-12">
-                <hr>
-                <p class="text-center">
-                    <a href="https://www.intec.edu.do">INTEC</a>. Santo Domingo, RD. 2015
-                </p>
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <h1>Cálculo de problemas físicos en línea</h1>
+
+                <p>Verifique sus resultados de ejercicios ya sean de Fuerza Eléctrica, Campo Eléctrico, o Potencial Eléctrico</p>
             </div>
         </div>
     </div>
-    
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <div class="row clearfix">
+        <div class="col-md-2">
+            <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+                <li role="presentation" class="active">
+                    <a href="#/">Inicio</a>
+                </li>
+                <li role="presentation">
+                    <a href="#/fuerza-electrica">Fuerza Eléctrica</a>
+                </li>
+                <li role="presentation">
+                    <a href="#/campo-electrico">Campo Eléctrico</a>
+                </li>
+                <li role="presentation">
+                    <a href="#/potencial-electrico">Potencial Eléctrico</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div ng-view></div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <hr>
+            <p class="text-center">
+                <a href="https://www.intec.edu.do">INTEC</a>. Santo Domingo, RD. 2015
+            </p>
+        </div>
+    </div>
+</div>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="js/controllers.js"></script>
 <script src="js/main.js"></script>
 <script>
     var core = new Core();
 
-    $(function() {
+    $(function () {
         core.calcularCampoElectrico();
     })
 </script>
