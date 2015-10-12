@@ -353,10 +353,33 @@ td,
 th {
   padding: 0; }
 
-.divisor {
+.fuerza-electrica-esfera-cargada-uniformemente .sphere-container {
+  display: inline-block;
+  vertical-align: middle; }
+.fuerza-electrica-esfera-cargada-uniformemente .punctual-container {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative; }
+  .fuerza-electrica-esfera-cargada-uniformemente .punctual-container .fe {
+    display: none;
+    position: absolute;
+    width: 48px;
+    height: 26px;
+    top: -4px; }
+  .fuerza-electrica-esfera-cargada-uniformemente .punctual-container .fe.fe-right {
+    background: transparent url("./img/fe-right.png") center center no-repeat;
+    right: -48px; }
+  .fuerza-electrica-esfera-cargada-uniformemente .punctual-container .fe.fe-left {
+    background: transparent url("./img/fe-left.png") center center no-repeat;
+    left: -48px; }
+  .fuerza-electrica-esfera-cargada-uniformemente .punctual-container .fe.visible {
+    display: block; }
+.fuerza-electrica-esfera-cargada-uniformemente .divisor {
   border-bottom: 1px dashed #aaa;
   vertical-align: middle;
   width: 100px;
   display: inline-block; }
+.fuerza-electrica-esfera-cargada-uniformemente .col-md-1 {
+  width: 110px !important; }
 
 /*# sourceMappingURL=styles.css.map */
