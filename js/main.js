@@ -96,9 +96,7 @@ function RepositorioUnidades(){
     si.agregarPrefijo(new Prefijo("zetta","Z", 21));
     si.agregarPrefijo(new Prefijo("yotta","Y", 24));
         
-    //IS THIS NECCESSARY?
     si.agregarPrefijo(new Prefijo("unidad","", 0));
-    //----
     
     si.agregarPrefijo(new Prefijo("deci", "d", -1));
     si.agregarPrefijo(new Prefijo("centi", "c", -2));
