@@ -25,24 +25,53 @@
             <label for="q1">&nbsp;</label>
             <select class="form-control" id="rMedida" data-unidad="metro"></select>
         </div>
-        <div class="form-group col-md-1">
+        <div class="form-group col-md-2">
             <label for="total">Total:</label>
             <input class="form-control" type="text" placeholder="" readonly id="total" >
+        </div>
+    </div>
+</form>
+<div class="clearfix">&nbsp;</div>
+<form class="form-inline">
+    <div class="row clearfix">
+        <div class="form-group col-md-2">
+            <label for="xa">Ángulo X</label>
+            <input type="number" name="xa" id="xa" class="form-control" />
+        </div>
+        <div class="form-group col-md-2">
+            <label for="ya">Ángulo Y</label>
+            <input type="number" name="ya" id="ya" class="form-control" />
+        </div>
+        <div class="form-group col-md-2">
+            <label for="totalVec">Total Vector:</label>
+            <input class="form-control" type="text" readonly id="totalVec" >
         </div>
     </div>
 </form>
 <script type="text/javascript" charset="utf-8">
     $(function(){
         Initialize();
-        $("#btnCalcular").click(function(e){
-            mostrarTotal();
-        });
+        $("#q1").focus();
         $("input, select").change(function(){
             mostrarTotal();
         });
         function mostrarTotal(){
-            var total = (KE * NC($("#q1").val(), $("#q1Medida").val()) * NC($("#q2").val(), $("#q2Medida").val()))/(NC($("#r").val(), $("#rMedida").val()));
-            $("#total").val(total); 
+            var Q1 = NC($("#q1").val(), $("#q1Medida").val());
+            var Q2 = NC($("#q2").val(), $("#q2Medida").val());
+            var r = (NC($("#r").val(), $("#rMedida").val()));
+            var total = Math.abs((KE * Q1 * Q2)/Math.pow(r,2));
+            $("#total").val((Math.round(total * 100) / 100)+"N"); 
+            
+            var xf = total * cosDegrees($("#xa").val());
+            var yf = total * sinDegrees($("#xa").val());
+            $("#totalVec").val((Math.round(xf * 100) / 100)+"i" + ", " + (Math.round(yf * 100) / 100) + "j"); 
         }
+        function cosDegrees(angle) {
+            return Math.cos(angle/180*Math.PI);
+        };
+        function sinDegrees(angle) {
+            return Math.sin(angle/180*Math.PI);
+        };
+        
     });
 </script>
