@@ -11,7 +11,7 @@
                 <div class="form-group col-md-1">
                     <label for="sphere-charge-unit">Unidad</label>
                     <select id="sphere-charge-unit" class="form-control">
-                        <option value="1">C</option>
+                        <option value="0">C</option>
                         <option value="-1">dC</option>
                         <option value="-3">mC</option>
                         <option selected value="-6">µC</option>
@@ -27,7 +27,7 @@
                 <div class="form-group col-md-1">
                     <label for="punctual-charge-unit">Unidad</label>
                     <select id="punctual-charge-unit" class="form-control">
-                        <option value="1">C</option>
+                        <option value="0">C</option>
                         <option value="-1">dC</option>
                         <option value="-3">mC</option>
                         <option selected value="-6">µC</option>
@@ -74,7 +74,6 @@
     </div>
     <script>
         var fe;
-        var e0 = 8.85 * Math.pow(10, -12);
 
         // $('#btn-calc').click(actualizarFuerzaElectrica);
 
@@ -87,11 +86,12 @@
         }
 
         function calcularFuerzaElectrica() {
-            var qEsfera = parseFloat($('#sphere-charge').val()) * Math.pow(10, parseFloat($('#sphere-charge-unit').val()));
-            var qTestigo = parseFloat($('#punctual-charge').val()) * Math.pow(10, parseFloat($('#punctual-charge-unit').val()));
+            var qEsfera = NC(parseFloat($('#sphere-charge').val()), parseFloat($('#sphere-charge-unit').val()));
+            var qTestigo = NC(parseFloat($('#punctual-charge').val()), parseFloat($('#punctual-charge-unit').val()));
             var qNeta = qEsfera * qTestigo;
-            var r = parseFloat($('#distance').val()) * Math.pow(10, parseFloat($('#distance-unit').val()));
-            return Math.round((qNeta / (4 * Math.PI * e0 * Math.pow(r, 2))) * 10000) / 10000;
+            var r = NC(parseFloat($('#distance').val()), parseFloat($('#distance-unit').val()));
+
+            return Math.round((qNeta / (4 * Math.PI * E0 * Math.pow(r, 2))) * 10000) / 10000;
         }
 
         $('#distance, #distance-unit').change(actualizarDistanciaVisual);
@@ -104,12 +104,12 @@
         $('#punctual-charge, #punctual-charge-unit').change(actualizarFuerzaElectrica);
 
         function actualizarDistanciaVisual() {
-            var d = parseFloat($('#distance').val()) * Math.pow(10, parseFloat($('#distance-unit').val()));
+            var d = NC(parseFloat($('#distance').val()), parseFloat($('#distance-unit').val()));
             $('.divisor').css('width', d * 1000);
         }
 
         function actualizarCargaTestigoVisual() {
-            var qTestigo = parseFloat($('#punctual-charge').val()) * Math.pow(10, parseFloat($('#punctual-charge-unit').val()));
+            var qTestigo = NC(parseFloat($('#punctual-charge').val()), parseFloat($('#punctual-charge-unit').val()));
 
             var src = './img/c.png';
             if(qTestigo > 0) {
