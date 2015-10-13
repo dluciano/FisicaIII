@@ -383,4 +383,34 @@ th {
 .fuerza-electrica-esfera-cargada-uniformemente .col-md-1 {
   width: 110px !important; }
 
+.fuerza-electrica-hilo-muy-largo-cargado .thread-container {
+  display: inline-block;
+  vertical-align: middle; }
+.fuerza-electrica-hilo-muy-largo-cargado .punctual-container {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative; }
+  .fuerza-electrica-hilo-muy-largo-cargado .punctual-container .fe {
+    display: none;
+    position: absolute;
+    width: 48px;
+    height: 26px;
+    top: -4px; }
+  .fuerza-electrica-hilo-muy-largo-cargado .punctual-container .fe.fe-right {
+    background: transparent url("./img/fe-right.png") center center no-repeat;
+    right: -48px; }
+  .fuerza-electrica-hilo-muy-largo-cargado .punctual-container .fe.fe-left {
+    background: transparent url("./img/fe-left.png") center center no-repeat;
+    left: -48px; }
+  .fuerza-electrica-hilo-muy-largo-cargado .punctual-container .fe.visible {
+    display: block; }
+.fuerza-electrica-hilo-muy-largo-cargado .divisor {
+  border-bottom: 1px dashed #aaa;
+  vertical-align: middle;
+  width: 100px;
+  max-width: 800px;
+  display: inline-block; }
+.fuerza-electrica-hilo-muy-largo-cargado .col-md-1 {
+  width: 110px !important; }
+
 /*# sourceMappingURL=styles.css.map */

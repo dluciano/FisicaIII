@@ -437,3 +437,56 @@ th {
     width:110px !important;
   }
 }
+
+// Hilo Cargado Muy Largo
+.fuerza-electrica-hilo-muy-largo-cargado {
+  .thread-container {
+    display:inline-block;
+    vertical-align:middle;
+    .thread {
+    }
+  }
+
+  .punctual-container {
+    display:inline-block;
+    vertical-align:middle;
+    position:relative;
+
+    .punctual {
+    }
+
+    .fe {
+      display:none;
+      position:absolute;
+      width:48px;
+      height:26px;
+      top:-4px;
+    }
+
+    .fe.fe-right {
+      background:transparent url('./img/fe-right.png') center center no-repeat;
+      right:-48px;
+    }
+
+    .fe.fe-left {
+      background:transparent url('./img/fe-left.png') center center no-repeat;
+      left:-48px;
+    }
+
+    .fe.visible {
+      display:block;
+    }
+  }
+
+  .divisor {
+    border-bottom:1px dashed #aaa;
+    vertical-align:middle;
+    width:100px;
+    max-width:800px;
+    display:inline-block;
+  }
+
+  .col-md-1 {
+    width:110px !important;
+  }
+}

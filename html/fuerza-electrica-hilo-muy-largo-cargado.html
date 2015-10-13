@@ -1,16 +1,16 @@
-<div class="fuerza-electrica-esfera-cargada-uniformemente">
+<div class="fuerza-electrica-hilo-muy-largo-cargado">
     <h3>Hilo Cargado Muy Largo</h3>
     <form action="#">
         Datos:
         <form class="form-inline">
             <div class="row clearfix">
                 <div class="form-group col-md-2">
-                    <label for="sphere-charge">Carga Neta Esfera:</label>
-                    <input type="number" step=".1" name="sphere-charge" id="sphere-charge" value="1.2" class="form-control" />
+                    <label for="thread-charge">λ:</label>
+                    <input type="number" step=".1" name="thread-charge" id="thread-charge" value="1.2" class="form-control" />
                 </div>
                 <div class="form-group col-md-1">
-                    <label for="sphere-charge-unit">Unidad</label>
-                    <select id="sphere-charge-unit" class="form-control">
+                    <label for="thread-charge-unit">Unidad / m</label>
+                    <select id="thread-charge-unit" class="form-control">
                         <option value="1">C</option>
                         <option value="-1">dC</option>
                         <option value="-3">mC</option>
@@ -62,8 +62,8 @@
         </form>
     </form>
     <div class="canvas">
-        <div class="sphere-container">
-            <img class="sphere" src="./img/hlp.png" alt="Hilo"/>
+        <div class="thread-container">
+            <img class="thread" src="./img/hlp.png" alt="Hilo"/>
         </div>
         <span class="divisor"></span>
         <div class="punctual-container">
@@ -73,7 +73,7 @@
         <br/>
         e0 = 8.85 * 10^-12
         <br/>
-        |E| = Qneta / (4 * pi * e0 * r^2)
+        |E| = λ / (2 * pi * e0 * r)
         <br/>
         |Fe| = q * |E|;
     </div>
@@ -90,17 +90,20 @@
         }
 
         function calcularFuerzaElectrica() {
-            var qEsfera = parseFloat($('#sphere-charge').val()) * Math.pow(10, parseFloat($('#sphere-charge-unit').val()));
+            //λ / (2 * pi * e0 * r)
+            var lambda = parseFloat($('#thread-charge').val()) * Math.pow(10, parseFloat($('#thread-charge-unit').val()));
             var qTestigo = parseFloat($('#punctual-charge').val()) * Math.pow(10, parseFloat($('#punctual-charge-unit').val()));
-            var qNeta = qEsfera * qTestigo;
             var r = parseFloat($('#distance').val()) * Math.pow(10, parseFloat($('#distance-unit').val()));
-            return Math.round((qNeta / (4 * Math.PI * e0 * Math.pow(r, 2))) * 10000) / 10000;
+            var campoElectrico = lambda / (2 * Math.PI * e0 * r);
+
+
+            return Math.round((campoElectrico * qTestigo) * 10000) / 10000;
         }
 
         $('#distance, #distance-unit').change(actualizarDistanciaVisual);
         $('#distance, #distance-unit').change(actualizarFuerzaElectrica);
-        $('#sphere-charge, #sphere-charge-unit').change(actualizarEsferaVisual);
-        $('#sphere-charge, #sphere-charge-unit').change(actualizarFuerzaElectrica);
+        $('#thread-charge, #thread-charge-unit').change(actualizarHiloVisual);
+        $('#thread-charge, #thread-charge-unit').change(actualizarFuerzaElectrica);
         $('#punctual-charge, #punctual-charge-unit').change(actualizarCargaTestigoVisual);
         $('#punctual-charge, #punctual-charge-unit').change(actualizarFuerzaElectrica);
 
@@ -121,17 +124,17 @@
             $('.punctual').attr('src', src);
         }
 
-        function actualizarEsferaVisual() {
-            var qEsfera = parseFloat($('#sphere-charge').val()) * Math.pow(10, parseFloat($('#sphere-charge-unit').val()));
+        function actualizarHiloVisual() {
+            var qHilo = parseFloat($('#thread-charge').val()) * Math.pow(10, parseFloat($('#thread-charge-unit').val()));
 
             var src = './img/hl.png';
-            if(qEsfera > 0) {
+            if(qHilo > 0) {
                 src = './img/hlp.png';
-            } else if(qEsfera < 0) {
+            } else if(qHilo < 0) {
                 src = './img/hln.png';
             }
 
-            $('.sphere').attr('src', src);
+            $('.thread').attr('src', src);
         }
 
         function actualizarFeVisual(fe) {
