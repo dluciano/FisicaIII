@@ -353,6 +353,31 @@ td,
 th {
   padding: 0; }
 
+.fuerza-electrica-dos-cargas-puntuales .punctual-container {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative; }
+  .fuerza-electrica-dos-cargas-puntuales .punctual-container .fe {
+    display: none;
+    position: absolute;
+    width: 48px;
+    height: 26px;
+    top: -4px; }
+  .fuerza-electrica-dos-cargas-puntuales .punctual-container .fe.fe-right {
+    background: transparent url("./img/fe-right.png") center center no-repeat;
+    right: -48px; }
+  .fuerza-electrica-dos-cargas-puntuales .punctual-container .fe.fe-left {
+    background: transparent url("./img/fe-left.png") center center no-repeat;
+    left: -48px; }
+  .fuerza-electrica-dos-cargas-puntuales .punctual-container .fe.visible {
+    display: block; }
+.fuerza-electrica-dos-cargas-puntuales .divisor {
+  border-bottom: 1px dashed #aaa;
+  vertical-align: middle;
+  width: 100px;
+  max-width: 800px;
+  display: inline-block; }
+
 .fuerza-electrica-esfera-cargada-uniformemente .sphere-container {
   display: inline-block;
   vertical-align: middle; }
