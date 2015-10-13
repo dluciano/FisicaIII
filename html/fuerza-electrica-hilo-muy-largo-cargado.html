@@ -6,15 +6,15 @@
             <div class="row clearfix">
                 <div class="form-group col-md-2">
                     <label for="thread-charge">λ:</label>
-                    <input type="number" step=".1" name="thread-charge" id="thread-charge" value="1.2" class="form-control" />
+                    <input type="number" step=".1" name="thread-charge" id="thread-charge" value="-1.2" class="form-control" />
                 </div>
                 <div class="form-group col-md-1">
                     <label for="thread-charge-unit">Unidad / m</label>
                     <select id="thread-charge-unit" class="form-control">
                         <option value="1">C</option>
                         <option value="-1">dC</option>
-                        <option value="-3">mC</option>
-                        <option selected value="-6">µC</option>
+                        <option selected value="-3">mC</option>
+                        <option value="-6">µC</option>
                         <option value="-9">nC</option>
                         <option value="-12">pC</option>
                         <option value="-15">fC</option>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label for="punctual-charge">Carga Testigo:</label>
-                    <input type="number" step=".1" name="punctual-charge" id="punctual-charge" value="1" class="form-control" />
+                    <input type="number" step=".1" name="punctual-charge" id="punctual-charge" value="1.2" class="form-control" />
                 </div>
                 <div class="form-group col-md-1">
                     <label for="punctual-charge-unit">Unidad</label>
@@ -38,12 +38,12 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label for="distance">Distancia:</label>
-                    <input type="number" step=".1" name="distance" id="distance" value="0.103875" min="0" class="form-control" />
+                    <input type="number" step=".1" name="distance" id="distance" value="0.3" min="0" class="form-control" />
                 </div>
                 <div class="form-group col-md-1">
                     <label for="distance-unit">Unidad</label>
                     <select id="distance-unit" class="form-control">
-                        <option value="0">m</option>
+                        <option selected value="0">m</option>
                         <option value="-3">ml</option>
                         <option value="-2">cm</option>
                         <option value="3">km</option>
@@ -76,11 +76,13 @@
         var fe;
         var e0 = 8.85 * Math.pow(10, -12);
 
-        $('#btn-calc').click(actualizarFuerzaElectrica);
+        // $('#btn-calc').click(actualizarFuerzaElectrica);
 
         function actualizarFuerzaElectrica() {
             var fe = calcularFuerzaElectrica();
             $('#result').val(Math.abs(fe));
+            actualizarHiloVisual();
+            actualizarCargaTestigoVisual();
             actualizarFeVisual(fe);
         }
 
@@ -91,14 +93,15 @@
             var r = parseFloat($('#distance').val()) * Math.pow(10, parseFloat($('#distance-unit').val()));
             var campoElectrico = lambda / (2 * Math.PI * e0 * r);
 
-
             return Math.round((campoElectrico * qTestigo) * 10000) / 10000;
         }
 
         $('#distance, #distance-unit').change(actualizarDistanciaVisual);
         $('#distance, #distance-unit').change(actualizarFuerzaElectrica);
+
         $('#thread-charge, #thread-charge-unit').change(actualizarHiloVisual);
         $('#thread-charge, #thread-charge-unit').change(actualizarFuerzaElectrica);
+
         $('#punctual-charge, #punctual-charge-unit').change(actualizarCargaTestigoVisual);
         $('#punctual-charge, #punctual-charge-unit').change(actualizarFuerzaElectrica);
 

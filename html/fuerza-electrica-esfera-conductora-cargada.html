@@ -76,11 +76,13 @@
         var fe;
         var e0 = 8.85 * Math.pow(10, -12);
 
-        $('#btn-calc').click(actualizarFuerzaElectrica);
+        // $('#btn-calc').click(actualizarFuerzaElectrica);
 
         function actualizarFuerzaElectrica() {
             var fe = calcularFuerzaElectrica();
             $('#result').val(Math.abs(fe));
+            actualizarEsferaVisual();
+            actualizarCargaTestigoVisual();
             actualizarFeVisual(fe);
         }
 
@@ -94,8 +96,10 @@
 
         $('#distance, #distance-unit').change(actualizarDistanciaVisual);
         $('#distance, #distance-unit').change(actualizarFuerzaElectrica);
+
         $('#sphere-charge, #sphere-charge-unit').change(actualizarEsferaVisual);
         $('#sphere-charge, #sphere-charge-unit').change(actualizarFuerzaElectrica);
+
         $('#punctual-charge, #punctual-charge-unit').change(actualizarCargaTestigoVisual);
         $('#punctual-charge, #punctual-charge-unit').change(actualizarFuerzaElectrica);
 
@@ -103,6 +107,7 @@
             var d = parseFloat($('#distance').val()) * Math.pow(10, parseFloat($('#distance-unit').val()));
             $('.divisor').css('width', d * 1000);
         }
+
         function actualizarCargaTestigoVisual() {
             var qTestigo = parseFloat($('#punctual-charge').val()) * Math.pow(10, parseFloat($('#punctual-charge-unit').val()));
 
