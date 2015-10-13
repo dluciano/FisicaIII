@@ -33,7 +33,7 @@ function UnidadDerivada(nombre, unidadesNumerador, unidadesDenominador, simbolo)
     self.unidadesNumerador = unidadesNumerador;
     self.unidadesDenominador = unidadesDenominador;
     self.simbolo = simbolo;
-    self.sistema = {}
+    self.sistema = {};
     return self;
 }
 
