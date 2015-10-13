@@ -37,13 +37,13 @@ function UnidadDerivada(nombre, unidadesNumerador, unidadesDenominador, simbolo)
     return self;
 }
 
-function Prefijo(nombre, simbolo, exponente, base = 10){
+function Prefijo(nombre, simbolo, exponente, base){
     var self = this;
     self.nombre = nombre;
     self.simbolo = simbolo;
     self.exponente = exponente;
     self.sistema = {};
-    self.base = base;
+    self.base = base === undefined ? 10 : base;
 }
 
 function SistemaMedida(nombre){
@@ -51,7 +51,7 @@ function SistemaMedida(nombre){
     self.nombre = nombre;
     self.unidades = [];
     self.unidadesDerivadas = [];
-    self. prefijos = [];
+    self.prefijos = [];
     
     self.agregarUnidad = function(unidad){
         unidad.sistema = self;
