@@ -6,6 +6,7 @@
             <input type="number" name="q1" id="q1" class="form-control"  />
         </div>
         <div class="form-group col-md-1">
+            <label for="q1">&nbsp;</label>
             <select class="form-control" id="q1Medida" data-unidad="culombio"></select>
           </div>
         <div class="form-group col-md-2">
@@ -13,6 +14,7 @@
             <input type="number" name="q2" id="q2" class="form-control" />
         </div>
         <div class="form-group col-md-1">
+            <label for="q1">&nbsp;</label>
             <select class="form-control" id="q2Medida" data-unidad="culombio"></select>
         </div>
         <div class="form-group col-md-2">
@@ -20,6 +22,7 @@
             <input type="number" name="r" id="r" class="form-control" />
         </div>
         <div class="form-group col-md-1">
+            <label for="q1">&nbsp;</label>
             <select class="form-control" id="rMedida" data-unidad="metro"></select>
         </div>
         <div class="form-group col-md-1">
@@ -27,18 +30,19 @@
             <input class="form-control" type="text" placeholder="" readonly id="total" >
         </div>
     </div>
-    <div class="row clearfix">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-default" id="btnCalcular" >Calcular</button>
-        </div>
-    </div>
 </form>
 <script type="text/javascript" charset="utf-8">
     $(function(){
         Initialize();
         $("#btnCalcular").click(function(e){
+            mostrarTotal();
+        });
+        $("input, select").change(function(){
+            mostrarTotal();
+        });
+        function mostrarTotal(){
             var total = (KE * NC($("#q1").val(), $("#q1Medida").val()) * NC($("#q2").val(), $("#q2Medida").val()))/(NC($("#r").val(), $("#rMedida").val()));
             $("#total").val(total); 
-        });
+        }
     });
 </script>
