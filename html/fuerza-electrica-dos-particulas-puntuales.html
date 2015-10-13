@@ -19,19 +19,12 @@
     <div class="row clearfix"><div class="col-md-12">&nbsp;</div></div>
     <div class="row clearfix">
         <div class="col-md-12">
-            <button type="submit" class="btn btn-default">Calcular</button>
+            <button type="submit" class="btn btn-default" >Calcular</button>
         </div>
     </div>
 </form>
 <script type="text/javascript" charset="utf-8">
     $(function(){
-        var self = this;
-        self.si = new RepositorioUnidades().sistemas[0];
-        
-        $("*").filter(function() {
-            return $(this).data("unidad") !== undefined;
-        }).each(function(e,sl){
-            UnidadComponente(self.si, sl);
-        });
+        Initialize();
     });
 </script>

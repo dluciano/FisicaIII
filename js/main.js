@@ -1,3 +1,9 @@
+var Core = function() {
+};
+
+Core.prototype.calcularCampoElectrico = function() {
+};
+
 function Magnitud(valor, unidad){
     var self = this;
     self.valor = valor;
@@ -144,4 +150,15 @@ function UnidadComponente(si, element){
         $(self.element).append($(o));
     });
     return self;
+}
+
+function Initialize(){
+    var self = this;
+    self.si = new RepositorioUnidades().sistemas[0];
+    
+    $("*").filter(function() {
+        return $(this).data("unidad") !== undefined;
+    }).each(function(e,sl){
+        UnidadComponente(self.si, sl);
+    });    
 }
