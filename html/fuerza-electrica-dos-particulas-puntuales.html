@@ -84,14 +84,11 @@
             return Math.round((qNeta / (4 * Math.PI * E0 * Math.pow(r, 2))) * 10000) / 10000;
         }
 
-        $('#r, #rMedida').change(actualizarDistanciaVisual);
-        $('#r, #rMedida').change(actualizarFuerzaElectrica);
+        $('#r, #rMedida').change(actualizarDistanciaVisual).change(actualizarFuerzaElectrica);
 
-        $('#q1, #q1Medida').change(actualizarCargaQ1Visual);
-        $('#q1, #q1Medida').change(actualizarFuerzaElectrica);
+        $('#q1, #q1Medida').change(actualizarCargaQ1Visual).change(actualizarFuerzaElectrica);
 
-        $('#q2, #q2Medida').change(actualizarCargaQ2Visual);
-        $('#q2, #q2Medida').change(actualizarFuerzaElectrica);
+        $('#q2, #q2Medida').change(actualizarCargaQ2Visual).change(actualizarFuerzaElectrica);
 
         function actualizarDistanciaVisual() {
             var d = NC(parseFloat($('#r').val()), parseFloat($('#rMedida').val()));
@@ -125,16 +122,15 @@
         }
 
         function actualizarFeVisual(fe) {
-            $('.fe').addClass('visible');
+            var $fe = $('.fe');
+            $fe.addClass('visible');
 
             if(fe > 0) {
-                $('.fe').removeClass('fe-left');
-                $('.fe').addClass('fe-right');
+                $fe.removeClass('fe-left').addClass('fe-right');
             } else if (fe < 0) {
-                $('.fe').removeClass('fe-right');
-                $('.fe').addClass('fe-left');
+                $fe.removeClass('fe-right').addClass('fe-left');
             } else {
-                $('.fe').removeClass('visible');
+                $fe.removeClass('visible');
             }
         }
 
