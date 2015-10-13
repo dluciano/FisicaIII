@@ -1,9 +1,3 @@
-var Core = function() {
-};
-
-Core.prototype.calcularCampoElectrico = function() {
-};
-
 function Magnitud(valor, unidad){
     var self = this;
     self.valor = valor;
