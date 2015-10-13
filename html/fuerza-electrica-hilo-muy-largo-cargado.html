@@ -74,7 +74,6 @@
     </div>
     <script>
         var fe;
-        var e0 = 8.85 * Math.pow(10, -12);
 
         // $('#btn-calc').click(actualizarFuerzaElectrica);
 
@@ -87,11 +86,11 @@
         }
 
         function calcularFuerzaElectrica() {
-            //λ / (2 * pi * e0 * r)
+            //λ / (2 * pi * E0 * r)
             var lambda = parseFloat($('#thread-charge').val()) * Math.pow(10, parseFloat($('#thread-charge-unit').val()));
             var qTestigo = parseFloat($('#punctual-charge').val()) * Math.pow(10, parseFloat($('#punctual-charge-unit').val()));
             var r = parseFloat($('#distance').val()) * Math.pow(10, parseFloat($('#distance-unit').val()));
-            var campoElectrico = lambda / (2 * Math.PI * e0 * r);
+            var campoElectrico = lambda / (2 * Math.PI * E0 * r);
 
             return Math.round((campoElectrico * qTestigo) * 10000) / 10000;
         }
