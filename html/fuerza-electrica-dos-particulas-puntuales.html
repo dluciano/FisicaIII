@@ -49,12 +49,12 @@
             </div>
         </div>
         <div class="canvas">
-            <div class="punctual-container q1container">
+            <div class="punctual-container">
                 <img class="punctual1" src="./img/cp.png" alt="Carga 1"/>
                 <div class="fe"></div>
             </div>
             <span class="divisor"></span>
-            <div class="punctual-container q2container">
+            <div class="punctual-container">
                 <img class="punctual2" src="./img/cp.png" alt="Carga 2"/>
                 <div class="fe"></div>
             </div>
@@ -72,8 +72,7 @@
             $('#result').val(Math.abs(fe));
             actualizarCargaQ1Visual();
             actualizarCargaQ2Visual();
-            actualizarFeVisual('.q1container', fe * -1);
-            actualizarFeVisual('.q2container', fe);
+            actualizarFeVisual(fe);
         }
 
         function calcularFuerzaElectrica() {
@@ -125,17 +124,17 @@
             $('.punctual2').attr('src', src);
         }
 
-        function actualizarFeVisual(selectorQ, fe) {
-            $(selectorQ + ' .fe').addClass('visible');
+        function actualizarFeVisual(fe) {
+            $('.fe').addClass('visible');
 
             if(fe > 0) {
-                $(selectorQ + ' .fe').removeClass('fe-left');
-                $(selectorQ + ' .fe').addClass('fe-right');
+                $('.fe').removeClass('fe-left');
+                $('.fe').addClass('fe-right');
             } else if (fe < 0) {
-                $(selectorQ + ' .fe').removeClass('fe-right');
-                $(selectorQ + ' .fe').addClass('fe-left');
+                $('.fe').removeClass('fe-right');
+                $('.fe').addClass('fe-left');
             } else {
-                $(selectorQ + ' .fe').removeClass('visible');
+                $('.fe').removeClass('visible');
             }
         }
 
@@ -152,14 +151,14 @@
                 mostrarTotal();
             });
             function mostrarTotal(){
-                var Q1 = NC($("#q1").val(), $("#q1Medida").val());
-                var Q2 = NC($("#q2").val(), $("#q2Medida").val());
-                var r = (NC($("#r").val(), $("#rMedida").val()));
+                var Q1 = NC(Math.abs($("#q1").val()), $("#q1Medida").val());
+                var Q2 = NC(Math.abs($("#q2").val()), $("#q2Medida").val());
+                var r = (NC(Math.abs($("#r").val()), $("#rMedida").val()));
                 var total = Math.abs((KE * Q1 * Q2)/Math.pow(r,2));
                 $("#total").val((Math.round(total * 100) / 100)+"N");
 
                 var xf = total * cosDegrees($("#xa").val());
-                var yf = total * sinDegrees($("#xa").val());
+                var yf = total * sinDegrees($("#ya").val());
                 $("#totalVec").val((Math.round(xf * 100) / 100)+"i" + ", " + (Math.round(yf * 100) / 100) + "j");
             }
             function cosDegrees(angle) {
