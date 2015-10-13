@@ -1,0 +1,159 @@
+<div class="fuerza-electrica-esfera-cargada-uniformemente">
+    <h3>Esfera Conductora Cargada</h3>
+    <form action="#">
+        Datos:
+        <form class="form-inline">
+            <div class="row clearfix">
+                <div class="form-group col-md-2">
+                    <label for="sphere-charge">Carga Neta Esfera:</label>
+                    <input type="number" step=".1" name="sphere-charge" id="sphere-charge" value="1.2" class="form-control" />
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="sphere-charge-unit">Unidad</label>
+                    <select id="sphere-charge-unit" class="form-control">
+                        <option value="1">C</option>
+                        <option value="-1">dC</option>
+                        <option value="-3">mC</option>
+                        <option selected value="-6">µC</option>
+                        <option value="-9">nC</option>
+                        <option value="-12">pC</option>
+                        <option value="-15">fC</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="punctual-charge">Carga Testigo:</label>
+                    <input type="number" step=".1" name="punctual-charge" id="punctual-charge" value="1" class="form-control" />
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="punctual-charge-unit">Unidad</label>
+                    <select id="punctual-charge-unit" class="form-control">
+                        <option value="1">C</option>
+                        <option value="-1">dC</option>
+                        <option value="-3">mC</option>
+                        <option selected value="-6">µC</option>
+                        <option value="-9">nC</option>
+                        <option value="-12">pC</option>
+                        <option value="-15">fC</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="distance">Distancia:</label>
+                    <input type="number" step=".1" name="distance" id="distance" value="0.103875" min="0" class="form-control" />
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="distance-unit">Unidad</label>
+                    <select id="distance-unit" class="form-control">
+                        <option value="0">m</option>
+                        <option value="-3">ml</option>
+                        <option value="-2">cm</option>
+                        <option value="3">km</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="result">Resultado (N):</label>
+                    <input type="text" name="result" id="result" value="" class="form-control" />
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button id="btn-calc" type="button" class="btn btn-default">Calcular</button>
+                </div>
+            </div>
+        </form>
+    </form>
+    <div class="canvas">
+        <div class="sphere-container">
+            <img class="sphere" src="./img/hlp.png" alt="Hilo"/>
+        </div>
+        <span class="divisor"></span>
+        <div class="punctual-container">
+            <img class="punctual" src="./img/cp.png" alt="Carga"/>
+            <div class="fe"></div>
+        </div>
+        <br/>
+        e0 = 8.85 * 10^-12
+        <br/>
+        |E| = Qneta / (4 * pi * e0 * r^2)
+        <br/>
+        |Fe| = q * |E|;
+    </div>
+    <script>
+        var fe;
+        var e0 = 8.85 * Math.pow(10, -12);
+
+        $('#btn-calc').click(actualizarFuerzaElectrica);
+
+        function actualizarFuerzaElectrica() {
+            var fe = calcularFuerzaElectrica();
+            $('#result').val(Math.abs(fe));
+            actualizarFeVisual(fe);
+        }
+
+        function calcularFuerzaElectrica() {
+            var qEsfera = parseFloat($('#sphere-charge').val()) * Math.pow(10, parseFloat($('#sphere-charge-unit').val()));
+            var qTestigo = parseFloat($('#punctual-charge').val()) * Math.pow(10, parseFloat($('#punctual-charge-unit').val()));
+            var qNeta = qEsfera * qTestigo;
+            var r = parseFloat($('#distance').val()) * Math.pow(10, parseFloat($('#distance-unit').val()));
+            return Math.round((qNeta / (4 * Math.PI * e0 * Math.pow(r, 2))) * 10000) / 10000;
+        }
+
+        $('#distance, #distance-unit').change(actualizarDistanciaVisual);
+        $('#distance, #distance-unit').change(actualizarFuerzaElectrica);
+        $('#sphere-charge, #sphere-charge-unit').change(actualizarEsferaVisual);
+        $('#sphere-charge, #sphere-charge-unit').change(actualizarFuerzaElectrica);
+        $('#punctual-charge, #punctual-charge-unit').change(actualizarCargaTestigoVisual);
+        $('#punctual-charge, #punctual-charge-unit').change(actualizarFuerzaElectrica);
+
+        function actualizarDistanciaVisual() {
+            var d = parseFloat($('#distance').val()) * Math.pow(10, parseFloat($('#distance-unit').val()));
+            $('.divisor').css('width', d * 1000);
+        }
+        function actualizarCargaTestigoVisual() {
+            var qTestigo = parseFloat($('#punctual-charge').val()) * Math.pow(10, parseFloat($('#punctual-charge-unit').val()));
+
+            var src = './img/c.png';
+            if(qTestigo > 0) {
+                src = './img/cp.png';
+            } else if(qTestigo < 0) {
+                src = './img/cn.png';
+            }
+
+            $('.punctual').attr('src', src);
+        }
+
+        function actualizarEsferaVisual() {
+            var qEsfera = parseFloat($('#sphere-charge').val()) * Math.pow(10, parseFloat($('#sphere-charge-unit').val()));
+
+            var src = './img/hl.png';
+            if(qEsfera > 0) {
+                src = './img/hlp.png';
+            } else if(qEsfera < 0) {
+                src = './img/hln.png';
+            }
+
+            $('.sphere').attr('src', src);
+        }
+
+        function actualizarFeVisual(fe) {
+            $('.fe').addClass('visible');
+            if(fe > 0) {
+                $('.fe').removeClass('fe-left');
+                $('.fe').addClass('fe-right');
+            } else if (fe < 0) {
+                $('.fe').removeClass('fe-right');
+                $('.fe').addClass('fe-left');
+            } else {
+                $('.fe').removeClass('visible');
+            }
+
+        }
+
+        $(init);
+
+        function init() {
+            actualizarFuerzaElectrica();
+        }
+
+
+    </script>
+</div>

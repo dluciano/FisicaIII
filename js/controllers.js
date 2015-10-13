@@ -17,8 +17,8 @@ angular.module('fis3App', ['ngRoute', 'fis3Controllers']).config(['$routeProvide
         $routeProvider.when('/fuerza-electrica/esfera-conductora-cargada', {
             templateUrl: './html/fuerza-electrica-esfera-conductora-cargada.html'
         });
-        $routeProvider.when('/fuerza-electrica/hilo-muy-largo', {
-            templateUrl: './html/fuerza-electrica-hilo-muy-largo.html'
+        $routeProvider.when('/fuerza-electrica/hilo-muy-largo-cargado', {
+            templateUrl: './html/fuerza-electrica-hilo-muy-largo-cargado.html'
         });
 
         $routeProvider.when('/campo-electrico', {
