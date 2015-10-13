@@ -49,12 +49,12 @@
             </div>
         </div>
         <div class="canvas">
-            <div class="punctual-container">
+            <div class="punctual-container q1container">
                 <img class="punctual1" src="./img/cp.png" alt="Carga 1"/>
                 <div class="fe"></div>
             </div>
             <span class="divisor"></span>
-            <div class="punctual-container">
+            <div class="punctual-container q2container">
                 <img class="punctual2" src="./img/cp.png" alt="Carga 2"/>
                 <div class="fe"></div>
             </div>
@@ -72,7 +72,8 @@
             $('#result').val(Math.abs(fe));
             actualizarCargaQ1Visual();
             actualizarCargaQ2Visual();
-            actualizarFeVisual(fe);
+            actualizarFeVisual('.q1container', fe * -1);
+            actualizarFeVisual('.q2container', fe);
         }
 
         function calcularFuerzaElectrica() {
@@ -124,17 +125,17 @@
             $('.punctual2').attr('src', src);
         }
 
-        function actualizarFeVisual(fe) {
-            $('.fe').addClass('visible');
+        function actualizarFeVisual(selectorQ, fe) {
+            $(selectorQ + ' .fe').addClass('visible');
 
             if(fe > 0) {
-                $('.fe').removeClass('fe-left');
-                $('.fe').addClass('fe-right');
+                $(selectorQ + ' .fe').removeClass('fe-left');
+                $(selectorQ + ' .fe').addClass('fe-right');
             } else if (fe < 0) {
-                $('.fe').removeClass('fe-right');
-                $('.fe').addClass('fe-left');
+                $(selectorQ + ' .fe').removeClass('fe-right');
+                $(selectorQ + ' .fe').addClass('fe-left');
             } else {
-                $('.fe').removeClass('visible');
+                $(selectorQ + ' .fe').removeClass('visible');
             }
         }
 
