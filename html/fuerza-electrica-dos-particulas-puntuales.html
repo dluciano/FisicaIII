@@ -149,6 +149,7 @@
             $("input, select").change(function () {
                 mostrarTotal();
             });
+
             function mostrarTotal() {
                 var Q1 = NC(Math.abs($("#q1").val()), $("#q1Medida").val());
                 var Q2 = NC(Math.abs($("#q2").val()), $("#q2Medida").val());
@@ -163,10 +164,11 @@
 
             function cosDegrees(angle) {
                 return Math.cos(angle / 180 * Math.PI);
-            };
+            }
+
             function sinDegrees(angle) {
                 return Math.sin(angle / 180 * Math.PI);
-            };
+            }
 
         });
     </script>

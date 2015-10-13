@@ -74,14 +74,11 @@
             return Math.round((qNeta / (4 * Math.PI * E0 * Math.pow(r, 2))) * 10000) / 10000;
         }
 
-        $('#distance, #distance-unit').change(actualizarDistanciaVisual);
-        $('#distance, #distance-unit').change(actualizarFuerzaElectrica);
+        $('#distance, #distance-unit').change(actualizarDistanciaVisual).change(actualizarFuerzaElectrica);
 
-        $('#sphere-charge, #sphere-charge-unit').change(actualizarEsferaVisual);
-        $('#sphere-charge, #sphere-charge-unit').change(actualizarFuerzaElectrica);
+        $('#sphere-charge, #sphere-charge-unit').change(actualizarEsferaVisual).change(actualizarFuerzaElectrica);
 
-        $('#punctual-charge, #punctual-charge-unit').change(actualizarCargaTestigoVisual);
-        $('#punctual-charge, #punctual-charge-unit').change(actualizarFuerzaElectrica);
+        $('#punctual-charge, #punctual-charge-unit').change(actualizarCargaTestigoVisual).change(actualizarFuerzaElectrica);
 
         function actualizarDistanciaVisual() {
             var d = NC(parseFloat($('#distance').val()), parseFloat($('#distance-unit').val()));
@@ -115,15 +112,16 @@
         }
 
         function actualizarFeVisual(fe) {
-            $('.fe').addClass('visible');
+            var $fe = $('.fe');
+            $fe.addClass('visible');
             if(fe > 0) {
-                $('.fe').removeClass('fe-left');
-                $('.fe').addClass('fe-right');
+                $fe.removeClass('fe-left');
+                $fe.addClass('fe-right');
             } else if (fe < 0) {
-                $('.fe').removeClass('fe-right');
-                $('.fe').addClass('fe-left');
+                $fe.removeClass('fe-right');
+                $fe.addClass('fe-left');
             } else {
-                $('.fe').removeClass('visible');
+                $fe.removeClass('visible');
             }
 
         }
@@ -134,7 +132,5 @@
             Initialize();
             actualizarFuerzaElectrica();
         }
-
-
     </script>
 </div>

@@ -5,7 +5,7 @@
         <div class="row clearfix">
             <div class="form-group col-md-2">
                 <label for="thread-charge">λ:</label>
-                <input type="number" step=".1" name="thread-charge" id="thread-charge" value="-1.2" class="form-control" />
+                <input type="number" step=".1" name="thread-charge" id="thread-charge" value="-1.2" class="form-control"/>
             </div>
             <div class="form-group col-md-1">
                 <label for="thread-charge-unit">Unidad / m</label>
@@ -13,7 +13,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="punctual-charge">Carga Testigo:</label>
-                <input type="number" step=".1" name="punctual-charge" id="punctual-charge" value="1.2" class="form-control" />
+                <input type="number" step=".1" name="punctual-charge" id="punctual-charge" value="1.2" class="form-control"/>
             </div>
             <div class="form-group col-md-1">
                 <label for="punctual-charge-unit">Unidad</label>
@@ -22,7 +22,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="distance">Distancia:</label>
-                <input type="number" step=".1" name="distance" id="distance" value="0.3" min="0" class="form-control" />
+                <input type="number" step=".1" name="distance" id="distance" value="0.3" min="0" class="form-control"/>
             </div>
             <div class="form-group col-md-1">
                 <label for="distance-unit">Unidad</label>
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="result">Resultado (N):</label>
-                <input type="text" name="result" id="result" value="" class="form-control" />
+                <input type="text" name="result" id="result" value="" class="form-control"/>
             </div>
         </div>
     </form>
@@ -41,8 +41,10 @@
             <img class="thread" src="./img/hlp.png" alt="Hilo"/>
         </div>
         <span class="divisor"></span>
+
         <div class="punctual-container">
             <img class="punctual" src="./img/cp.png" alt="Carga"/>
+
             <div class="fe"></div>
         </div>
         <br/>
@@ -74,14 +76,11 @@
             return Math.round((campoElectrico * qTestigo) * 10000) / 10000;
         }
 
-        $('#distance, #distance-unit').change(actualizarDistanciaVisual);
-        $('#distance, #distance-unit').change(actualizarFuerzaElectrica);
+        $('#distance, #distance-unit').change(actualizarDistanciaVisual).change(actualizarFuerzaElectrica);
 
-        $('#thread-charge, #thread-charge-unit').change(actualizarHiloVisual);
-        $('#thread-charge, #thread-charge-unit').change(actualizarFuerzaElectrica);
+        $('#thread-charge, #thread-charge-unit').change(actualizarHiloVisual).change(actualizarFuerzaElectrica);
 
-        $('#punctual-charge, #punctual-charge-unit').change(actualizarCargaTestigoVisual);
-        $('#punctual-charge, #punctual-charge-unit').change(actualizarFuerzaElectrica);
+        $('#punctual-charge, #punctual-charge-unit').change(actualizarCargaTestigoVisual).change(actualizarFuerzaElectrica);
 
         function actualizarDistanciaVisual() {
             var d = parseFloat($('#distance').val()) * Math.pow(10, parseFloat($('#distance-unit').val()));
@@ -91,9 +90,9 @@
             var qTestigo = parseFloat($('#punctual-charge').val()) * Math.pow(10, parseFloat($('#punctual-charge-unit').val()));
 
             var src = './img/c.png';
-            if(qTestigo > 0) {
+            if (qTestigo > 0) {
                 src = './img/cp.png';
-            } else if(qTestigo < 0) {
+            } else if (qTestigo < 0) {
                 src = './img/cn.png';
             }
 
@@ -104,9 +103,9 @@
             var qHilo = parseFloat($('#thread-charge').val()) * Math.pow(10, parseFloat($('#thread-charge-unit').val()));
 
             var src = './img/hl.png';
-            if(qHilo > 0) {
+            if (qHilo > 0) {
                 src = './img/hlp.png';
-            } else if(qHilo < 0) {
+            } else if (qHilo < 0) {
                 src = './img/hln.png';
             }
 
@@ -114,15 +113,16 @@
         }
 
         function actualizarFeVisual(fe) {
-            $('.fe').addClass('visible');
-            if(fe > 0) {
-                $('.fe').removeClass('fe-left');
-                $('.fe').addClass('fe-right');
+            var $fe = $('.fe');
+            $fe.addClass('visible');
+            if (fe > 0) {
+                $fe.removeClass('fe-left');
+                $fe.addClass('fe-right');
             } else if (fe < 0) {
-                $('.fe').removeClass('fe-right');
-                $('.fe').addClass('fe-left');
+                $fe.removeClass('fe-right');
+                $fe.addClass('fe-left');
             } else {
-                $('.fe').removeClass('visible');
+                $fe.removeClass('visible');
             }
 
         }
