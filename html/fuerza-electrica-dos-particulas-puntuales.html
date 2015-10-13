@@ -28,12 +28,10 @@
         var self = this;
         self.si = new RepositorioUnidades().sistemas[0];
         
-        
         $("*").filter(function() {
             return $(this).data("unidad") !== undefined;
         }).each(function(e,sl){
             UnidadComponente(self.si, sl);
         });
-        
     });
 </script>
