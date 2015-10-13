@@ -84,22 +84,22 @@
             return Math.round((qNeta / (4 * Math.PI * E0 * Math.pow(r, 2))) * 10000) / 10000;
         }
 
-        $('#r, #rUnidad').change(actualizarDistanciaVisual);
-        $('#r, #rUnidad').change(actualizarFuerzaElectrica);
+        $('#r, #rMedida').change(actualizarDistanciaVisual);
+        $('#r, #rMedida').change(actualizarFuerzaElectrica);
 
-        $('#q1, #q1Unidad').change(actualizarCargaQ1Visual);
-        $('#q1, #q1Unidad').change(actualizarFuerzaElectrica);
+        $('#q1, #q1Medida').change(actualizarCargaQ1Visual);
+        $('#q1, #q1Medida').change(actualizarFuerzaElectrica);
 
-        $('#q2, #q2Unidad').change(actualizarCargaQ2Visual);
-        $('#q2, #q2Unidad').change(actualizarFuerzaElectrica);
+        $('#q2, #q2Medida').change(actualizarCargaQ2Visual);
+        $('#q2, #q2Medida').change(actualizarFuerzaElectrica);
 
         function actualizarDistanciaVisual() {
-            var d = NC(parseFloat($('#distance').val()), parseFloat($('#distance-unit').val()));
+            var d = NC(parseFloat($('#r').val()), parseFloat($('#rMedida').val()));
             $('.divisor').css('width', d * 1000);
         }
 
         function actualizarCargaQ1Visual() {
-            var q1 = NC(parseFloat($('#q1').val()), parseFloat($('#q1Unidad').val()));
+            var q1 = NC(parseFloat($('#q1').val()), parseFloat($('#q1Medida').val()));
 
             var src = './img/c.png';
             if(q1 > 0) {
@@ -112,7 +112,7 @@
         }
 
         function actualizarCargaQ2Visual() {
-            var q2 = NC(parseFloat($('#q2').val()), parseFloat($('#q2Unidad').val()));
+            var q2 = NC(parseFloat($('#q2').val()), parseFloat($('#q2Medida').val()));
 
             var src = './img/c.png';
             if(q2 > 0) {
