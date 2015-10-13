@@ -63,7 +63,7 @@
     </form>
     <div class="canvas">
         <div class="sphere-container">
-            <img class="sphere" src="./img/ep.png" alt="Esfera"/>
+            <img class="sphere" src="./img/hlp.png" alt="Hilo"/>
         </div>
         <span class="divisor"></span>
         <div class="punctual-container">
@@ -124,11 +124,11 @@
         function actualizarEsferaVisual() {
             var qEsfera = parseFloat($('#sphere-charge').val()) * Math.pow(10, parseFloat($('#sphere-charge-unit').val()));
 
-            var src = './img/e.png';
+            var src = './img/hl.png';
             if(qEsfera > 0) {
-                src = './img/ep.png';
+                src = './img/hlp.png';
             } else if(qEsfera < 0) {
-                src = './img/en.png';
+                src = './img/hln.png';
             }
 
             $('.sphere').attr('src', src);
