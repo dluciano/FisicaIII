@@ -1,10 +1,11 @@
 <div class="fuerza-electrica-dos-cargas-puntuales">
     <h3>Fuerza eléctrica entre dos partículas con cargas puntuales</h3>
+
     <form class="form-inline">
         <div class="row clearfix">
             <div class="form-group col-md-2">
                 <label for="q1">Q1</label>
-                <input type="number" name="q1" id="q1" class="form-control"  />
+                <input type="number" name="q1" id="q1" class="form-control"/>
             </div>
             <div class="form-group col-md-1">
                 <label for="q1">&nbsp;</label>
@@ -12,7 +13,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="q2">Q2</label>
-                <input type="number" name="q2" id="q2" class="form-control" />
+                <input type="number" name="q2" id="q2" class="form-control"/>
             </div>
             <div class="form-group col-md-1">
                 <label for="q1">&nbsp;</label>
@@ -20,7 +21,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="q2">R</label>
-                <input type="number" name="r" id="r" class="form-control" />
+                <input type="number" name="r" id="r" class="form-control"/>
             </div>
             <div class="form-group col-md-1">
                 <label for="q1">&nbsp;</label>
@@ -28,7 +29,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="total">Total:</label>
-                <input class="form-control" type="text" placeholder="" readonly id="total" >
+                <input class="form-control" type="text" placeholder="" readonly id="total">
             </div>
         </div>
     </form>
@@ -37,25 +38,28 @@
         <div class="row clearfix">
             <div class="form-group col-md-2">
                 <label for="xa">Ángulo X</label>
-                <input type="number" name="xa" id="xa" class="form-control" />
+                <input type="number" name="xa" id="xa" class="form-control"/>
             </div>
             <div class="form-group col-md-2">
                 <label for="ya">Ángulo Y</label>
-                <input type="number" name="ya" id="ya" class="form-control" />
+                <input type="number" name="ya" id="ya" class="form-control"/>
             </div>
             <div class="form-group col-md-2">
                 <label for="totalVec">Total Vector:</label>
-                <input class="form-control" type="text" readonly id="totalVec" >
+                <input class="form-control" type="text" readonly id="totalVec">
             </div>
         </div>
         <div class="canvas">
             <div class="punctual-container">
                 <img class="punctual1" src="./img/cp.png" alt="Carga 1"/>
+
                 <div class="fe"></div>
             </div>
             <span class="divisor"></span>
+
             <div class="punctual-container">
                 <img class="punctual2" src="./img/cp.png" alt="Carga 2"/>
+
                 <div class="fe"></div>
             </div>
         </div>
@@ -64,7 +68,6 @@
         var fe;
 
         // $('#btn-calc').click(actualizarFuerzaElectrica);
-
 
 
         function actualizarFuerzaElectrica() {
@@ -99,9 +102,9 @@
             var q1 = NC(parseFloat($('#q1').val()), parseFloat($('#q1Medida').val()));
 
             var src = './img/c.png';
-            if(q1 > 0) {
+            if (q1 > 0) {
                 src = './img/cp.png';
-            } else if(q1 < 0) {
+            } else if (q1 < 0) {
                 src = './img/cn.png';
             }
 
@@ -112,9 +115,9 @@
             var q2 = NC(parseFloat($('#q2').val()), parseFloat($('#q2Medida').val()));
 
             var src = './img/c.png';
-            if(q2 > 0) {
+            if (q2 > 0) {
                 src = './img/cp.png';
-            } else if(q2 < 0) {
+            } else if (q2 < 0) {
                 src = './img/cn.png';
             }
 
@@ -125,7 +128,7 @@
             var $fe = $('.fe');
             $fe.addClass('visible');
 
-            if(fe > 0) {
+            if (fe > 0) {
                 $fe.removeClass('fe-left').addClass('fe-right');
             } else if (fe < 0) {
                 $fe.removeClass('fe-right').addClass('fe-left');
@@ -140,28 +143,29 @@
             actualizarFuerzaElectrica();
         }
 
-        $(function(){
+        $(function () {
             Initialize();
             $("#q1").focus();
-            $("input, select").change(function(){
+            $("input, select").change(function () {
                 mostrarTotal();
             });
-            function mostrarTotal(){
+            function mostrarTotal() {
                 var Q1 = NC(Math.abs($("#q1").val()), $("#q1Medida").val());
                 var Q2 = NC(Math.abs($("#q2").val()), $("#q2Medida").val());
                 var r = (NC(Math.abs($("#r").val()), $("#rMedida").val()));
-                var total = Math.abs((KE * Q1 * Q2)/Math.pow(r,2));
-                $("#total").val((Math.round(total * 100) / 100)+"N");
+                var total = Math.abs((KE * Q1 * Q2) / Math.pow(r, 2));
+                $("#total").val((Math.round(total * 100) / 100) + "N");
 
                 var xf = total * cosDegrees($("#xa").val());
                 var yf = total * sinDegrees($("#ya").val());
-                $("#totalVec").val((Math.round(xf * 100) / 100)+"i" + ", " + (Math.round(yf * 100) / 100) + "j");
+                $("#totalVec").val((Math.round(xf * 100) / 100) + "i" + ", " + (Math.round(yf * 100) / 100) + "j");
             }
+
             function cosDegrees(angle) {
-                return Math.cos(angle/180*Math.PI);
+                return Math.cos(angle / 180 * Math.PI);
             };
             function sinDegrees(angle) {
-                return Math.sin(angle/180*Math.PI);
+                return Math.sin(angle / 180 * Math.PI);
             };
 
         });
