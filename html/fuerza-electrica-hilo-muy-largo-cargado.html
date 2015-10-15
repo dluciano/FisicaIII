@@ -72,7 +72,6 @@
             var qTestigo = parseFloat($('#punctual-charge').val()) * Math.pow(10, parseFloat($('#punctual-charge-unit').val()));
             var r = parseFloat($('#distance').val()) * Math.pow(10, parseFloat($('#distance-unit').val()));
             var campoElectrico = lambda / (2 * Math.PI * E0 * r);
-
             return Math.round((campoElectrico * qTestigo) * 10000) / 10000;
         }
 

@@ -75,7 +75,6 @@
             $('#result').val(Math.abs(fe));
             actualizarCargaQ1Visual();
             actualizarCargaQ2Visual();
-            actualizarFeVisual(fe);
         }
 
         function calcularFuerzaElectrica() {
@@ -84,7 +83,12 @@
             var qNeta = q1 * q2;
             var r = NC(parseFloat($('#r').val()), parseFloat($('#rMedida').val()));
 
-            return Math.round((qNeta / (4 * Math.PI * E0 * Math.pow(r, 2))) * 10000) / 10000;
+            var fe = Math.round((qNeta / (4 * Math.PI * E0 * Math.pow(r, 2))) * 10000) / 10000;
+
+            actualizarFeVisual(fe * -1, '.punctual1 + .fe');
+            actualizarFeVisual(fe, '.punctual2 + .fe');
+
+            return fe;
         }
 
         $('#r, #rMedida').change(actualizarDistanciaVisual).change(actualizarFuerzaElectrica);
@@ -124,8 +128,8 @@
             $('.punctual2').attr('src', src);
         }
 
-        function actualizarFeVisual(fe) {
-            var $fe = $('.fe');
+        function actualizarFeVisual(fe, selCarga) {
+            var $fe = $(selCarga);
             $fe.addClass('visible');
 
             if (fe > 0) {
