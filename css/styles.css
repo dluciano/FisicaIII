@@ -353,6 +353,15 @@ td,
 th {
   padding: 0; }
 
+.canvas {
+  background: url("./img/bg-grid.png") left top repeat;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+  max-width: 100%;
+  border-radius: 6px;
+  margin-top: 10px; }
+
 .fuerza-electrica-dos-cargas-puntuales .punctual-container {
   display: inline-block;
   vertical-align: middle;

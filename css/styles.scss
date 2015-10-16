@@ -385,6 +385,16 @@ th {
 }
 // Custom Styles
 
+.canvas {
+  background:url('./img/bg-grid.png') left top repeat;
+  border:1px solid #ccc;
+  padding:10px;
+  box-sizing:border-box;
+  max-width:100%;
+  border-radius:6px;
+  margin-top:10px;
+}
+
 // Dos Cargas Puntuales
 .fuerza-electrica-dos-cargas-puntuales {
   .punctual-container {
