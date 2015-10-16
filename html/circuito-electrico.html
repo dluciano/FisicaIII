@@ -1,0 +1,146 @@
+<div class="circuito-electrico">
+    <div class="canvas">
+
+    </div>
+    <button id="toggle-wiring-mode">Modo Cableado</button>
+    <button id="add-resistor">+ Resistor</button>
+    <button id="add-power">+ Power</button>
+    <script>
+        $(function () {
+            var eM = new elementManager($('.canvas'));
+            var WIRING_MODE_ON = false;
+
+            $('#add-resistor').click(function () {
+                eM.addResistor(prompt("Ingrese la cantidad de ohmios: "))
+            });
+
+            $('#add-power').click(function () {
+                eM.addPower(prompt("Ingrese la cantidad de voltios: "))
+            });
+
+            $(document).on('click', '.circuit.element', function () {
+                if (!WIRING_MODE_ON)
+                    return;
+
+                var ce = $(this);
+
+                var starting = $('.selected');
+
+                if (starting.length === 0) {
+                    ce.toggleClass('selected');
+                    return;
+                }
+                starting.removeClass('selected');
+
+                starting.connections({to: ce});
+            });
+
+            $('#toggle-wiring-mode').click(function () {
+                WIRING_MODE_ON = !WIRING_MODE_ON;
+
+                $(this).toggleClass('wiring-enabled');
+
+                if (!WIRING_MODE_ON)
+                    $('.selected').removeClass('selected');
+            });
+
+            //$('#add-connector').click(eM.addConnector());
+        });
+
+        function elementManager(canvas) {
+            var self = this;
+            self.resistors = [];
+            self.powers = [];
+            self.connectors = [];
+
+            self.canvas = canvas;
+
+            self.lastResistorId = 0;
+            self.lastPowerId = 0;
+            self.lastConnectorId = 0;
+
+            function addToCanvas(vm) {
+                self.canvas.append($(vm.render()).draggable());
+            }
+
+            self.addResistor = function (ohms) {
+                var r = new resistor("R" + ++self.lastResistorId, ohms);
+                self.resistors.push(r);
+                addToCanvas(new resistorVM(r));
+            };
+
+            self.addPower = function (volts) {
+                var p = new power("V" + ++self.lastPowerId, volts);
+                self.powers.push(p);
+                addToCanvas(new powerVM(p));
+            };
+
+            self.addConnector = function (e1, e2) {
+                var c = new connector(e1, e2);
+                self.connectors.push(c);
+                addToCanvas(new connectorVM(c));
+            };
+
+            return this;
+        }
+
+        function resistor(name, value) {
+            this.name = name;
+            this.value = value;
+
+            return this;
+        }
+
+        function resistorVM(resistor) {
+            var self = this;
+            self.resistor = resistor;
+            self.render = function () {
+                return '<figure class="circuit element resistor"><br><br>' +
+                        self.resistor.name + ": " +
+                        self.resistor.value + "Ω" +
+                        '</figure>';
+            }
+        }
+
+        function power(name, value) {
+            this.name = name;
+            this.value = value;
+
+            return this;
+        }
+
+        function powerVM(power) {
+            var self = this;
+            self.power = power;
+            self.render = function () {
+                return '<figure class="circuit element power"><br><br>' +
+                        self.power.name + ": " +
+                        self.power.value + "V" +
+                        '</figure>';
+            }
+        }
+
+        function connector(name, e1, e2) {
+            this.name = name;
+            this.intensity = null;
+            this.voltage = null;
+            this.e1 = e1;
+            this.e2 = e2;
+
+            return this;
+        }
+
+        function connectorVM(connector) {
+            var self = this;
+            self.connector = connector;
+            self.render = function () {
+                return '<figure class="circuit element connector"><br><br>' +
+                        self.connector.name +
+                        self.connector.intensity +
+                        self.connector.voltage +
+                        '</figure>';
+            }
+        }
+
+    </script>
+</div>

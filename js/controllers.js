@@ -28,5 +28,9 @@ angular.module('fis3App', ['ngRoute', 'fis3Controllers']).config(['$routeProvide
         $routeProvider.when('/potencial-electrico', {
             templateUrl: './html/potencial-electrico.html'
         });
+
+        $routeProvider.when('/circuito-electrico', {
+            templateUrl: './html/circuito-electrico.html'
+        });
     }]
 );

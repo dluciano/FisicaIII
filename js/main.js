@@ -1,3 +1,5 @@
+
+
 function Magnitud(valor, unidad) {
     var self = this;
     self.valor = valor;

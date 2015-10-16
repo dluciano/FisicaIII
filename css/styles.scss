@@ -388,13 +388,13 @@ th {
 .canvas {
   background:url('./img/bg-grid.png') left top repeat;
   border:1px solid #ccc;
-  padding:10px;
+  padding:20px;
   box-sizing:border-box;
   max-width:100%;
+  min-height:200px;
   border-radius:6px;
   margin-top:10px;
 }
-
 // Dos Cargas Puntuales
 .fuerza-electrica-dos-cargas-puntuales {
   .punctual-container {
@@ -436,7 +436,6 @@ th {
     display:inline-block;
   }
 }
-
 // Esfera Cargada Uniformemente
 .fuerza-electrica-esfera-cargada-uniformemente {
   .sphere-container {
@@ -489,7 +488,6 @@ th {
     width:110px !important;
   }
 }
-
 // Hilo Cargado Muy Largo
 .fuerza-electrica-hilo-muy-largo-cargado {
   .thread-container {
@@ -540,5 +538,31 @@ th {
 
   .col-md-1 {
     width:110px !important;
+  }
+}
+// Circuitos
+
+.circuito-electrico {
+  .circuit.element {
+    width:30px;
+    height:30px;
+    background:white center center no-repeat;
+    background-size:100% 100%;
+    border:1px solid #ddd;
+  }
+  .circuit.element.resistor {
+    background-image:url('./img/r.png');
+  }
+  .circuit.element.power {
+    background-image:url('./img/p.png');
+    border-radius:50%;
+  }
+  .circuit.element.connector {
+    background-image:url('./img/c.png');
+  }
+
+  #toggle-wiring-mode { }
+  #toggle-wiring-mode.wiring-enabled {
+    background:#ff0;
   }
 }

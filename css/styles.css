@@ -356,9 +356,10 @@ th {
 .canvas {
   background: url("./img/bg-grid.png") left top repeat;
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 20px;
   box-sizing: border-box;
   max-width: 100%;
+  min-height: 200px;
   border-radius: 6px;
   margin-top: 10px; }
 
@@ -446,5 +447,21 @@ th {
   display: inline-block; }
 .fuerza-electrica-hilo-muy-largo-cargado .col-md-1 {
   width: 110px !important; }
+
+.circuito-electrico .circuit.element {
+  width: 30px;
+  height: 30px;
+  background: white center center no-repeat;
+  background-size: 100% 100%;
+  border: 1px solid #ddd; }
+.circuito-electrico .circuit.element.resistor {
+  background-image: url("./img/r.png"); }
+.circuito-electrico .circuit.element.power {
+  background-image: url("./img/p.png");
+  border-radius: 50%; }
+.circuito-electrico .circuit.element.connector {
+  background-image: url("./img/c.png"); }
+.circuito-electrico #toggle-wiring-mode.wiring-enabled {
+  background: #ff0; }
 
 /*# sourceMappingURL=styles.css.map */
