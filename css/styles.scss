@@ -391,7 +391,7 @@ th {
   padding:20px;
   box-sizing:border-box;
   max-width:100%;
-  min-height:200px;
+  min-height:500px;
   border-radius:6px;
   margin-top:10px;
 }
@@ -564,5 +564,9 @@ th {
   #toggle-wiring-mode { }
   #toggle-wiring-mode.wiring-enabled {
     background:#ff0;
+  }
+
+  .controls-container {
+    margin-top:10px;
   }
 }

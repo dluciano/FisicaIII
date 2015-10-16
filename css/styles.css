@@ -359,7 +359,7 @@ th {
   padding: 20px;
   box-sizing: border-box;
   max-width: 100%;
-  min-height: 200px;
+  min-height: 500px;
   border-radius: 6px;
   margin-top: 10px; }
 
@@ -463,5 +463,7 @@ th {
   background-image: url("./img/c.png"); }
 .circuito-electrico #toggle-wiring-mode.wiring-enabled {
   background: #ff0; }
+.circuito-electrico .controls-container {
+  margin-top: 10px; }
 
 /*# sourceMappingURL=styles.css.map */
