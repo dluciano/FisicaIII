@@ -1,59 +1,64 @@
 <div class="circuito-electrico">
     <div class="controls-container">
-        <button id="add-power">+ Fuente</button>
-        <button id="add-resistor">+ Resistencia</button>
-        <button id="toggle-wiring-mode">Modo Cableado</button>
-        <button id="simulate">Simular</button>
+        <button id="btn-add-power">+ Fuente</button>
+        <button id="btn-add-resistor">+ Resistencia</button>
+        <button id="btn-toggle-wiring-mode">Modo Cableado</button>
+        <button id="btn-simulate">Simular</button>
     </div>
     <div class="canvas">
 
     </div>
     <script>
-        // TODO: Fix Connections After Dragging
-        var c = $('.connection');
-        setInterval(function () {
-            c.connections('update');
-        }, 500);
+        $.repeat().add('connection').each($).connections('update').wait(0);
 
         $(function () {
             var eM = new elementManager($('.canvas'));
             var WIRING_MODE_ON = false;
 
-            $('#add-resistor').click(function () {
-                eM.addResistor(prompt("Ingrese la cantidad de ohmios: "))
+            $('#btn-add-resistor').click(function () {
+                eM.addResistor(parseFloat(prompt("Ingrese la cantidad de ohmios: ")));
             });
 
-            $('#add-power').click(function () {
-                eM.addPower(prompt("Ingrese la cantidad de voltios: "))
+            $('#btn-add-power').click(function () {
+                eM.addPower(parseFloat(prompt("Ingrese la cantidad de voltios: ")));
             });
 
-            $(document).on('click', '.circuit.element', function () {
-                if (!WIRING_MODE_ON)
-                    return;
-
-                // TODO: Handle double clicking an element, for idiots.
-
-                var ce = $(this);
-                var starting = $('.selected-element');
-
-                if (starting.length === 0) {
-                    ce.toggleClass('selected-element');
-                    return;
-                }
-
-                eM.addConnector(starting.attr('id'), ce.attr('id'));
-
-                starting.removeClass('selected-element');
-                starting.connections({to: '#' + ce.attr('id'), 'class': 'related'});
-            });
-
-            $('#toggle-wiring-mode').click(function () {
+            $('#btn-toggle-wiring-mode').click(function () {
                 WIRING_MODE_ON = !WIRING_MODE_ON;
 
                 $(this).toggleClass('wiring-enabled');
 
                 if (!WIRING_MODE_ON)
                     $('.selected-element').removeClass('selected-element');
+            });
+
+            $('#btn-simulate').click(function () {
+                var pC = new physicsCalculator(eM);
+                pC.calculate();
+
+
+            });
+
+            $(document).on('click', '.circuit.element', function () {
+                if (!WIRING_MODE_ON)
+                    return;
+
+                var ce = $(this);
+                var starting = $('.selected-element');
+
+                if (ce[0] == starting[0]) {
+                    starting.removeClass('selected-element');
+                    return;
+                }
+
+                if (starting.length === 0) {
+                    ce.toggleClass('selected-element');
+                    return;
+                }
+
+                eM.addConnector(starting, ce);
+
+                starting.removeClass('selected-element');
             });
 
             //$('#add-connector').click(eM.addConnector());
@@ -76,27 +81,33 @@
             }
 
             self.addResistor = function (ohms) {
-                if(isNaN(ohms) || ohms <= 0)
+                if (isNaN(ohms) || ohms <= 0)
                     return;
-                var r = new resistor("R" + ++self.lastResistorId, ohms);
+                var r = new resistor("R" + ++self.lastResistorId, ohms, "r" + self.lastResistorId);
                 self.resistors.push(r);
                 addToCanvas(new resistorVM(r));
             };
 
             self.addPower = function (volts) {
-                if(isNaN(volts) || volts <= 0)
+                if (isNaN(volts) || volts <= 0)
                     return;
-                var p = new power("V" + ++self.lastPowerId, volts);
+                var p = new power("V" + ++self.lastPowerId, volts, 'v' + self.lastPowerId);
                 self.powers.push(p);
                 addToCanvas(new powerVM(p));
             };
 
-            self.addConnector = function (id1, id2) {
-                var c = new connector("C" + ++self.lastConnectorId, searchStoredElement(id1), searchStoredElement(id2));
-
-                // TODO: Use ConnectorVM to render lines, actually on click.
+            self.addConnector = function (from, to) {
+                var c = new connector("C" + ++self.lastConnectorId,
+                        searchStoredElement(from.attr('id')), searchStoredElement(to.attr('id')),
+                        "c" + self.lastConnectorId);
 
                 self.connectors.push(c);
+
+                // TODO: Handle connecting the same two elements twice.
+
+                var cVM = new connectorVM(c);
+                cVM.render();
+
             };
 
             function searchStoredElement(id) {
@@ -120,9 +131,10 @@
             return this;
         }
 
-        function resistor(name, value) {
+        function resistor(name, value, id) {
             this.name = name;
             this.value = value;
+            this.id = id;
 
             return this;
         }
@@ -131,16 +143,17 @@
             var self = this;
             self.resistor = resistor;
             self.render = function () {
-                return '<figure id="' + self.resistor.name.toLowerCase() + '" class="circuit element resistor"><br><br>' +
+                return '<figure id="' + self.resistor.id + '" class="circuit element resistor"><br><br>' +
                         self.resistor.name + " " +
                         self.resistor.value + "Ω" +
                         '</figure>';
             }
         }
 
-        function power(name, value) {
+        function power(name, value, id) {
             this.name = name;
             this.value = value;
+            this.id = id;
 
             return this;
         }
@@ -149,19 +162,20 @@
             var self = this;
             self.power = power;
             self.render = function () {
-                return '<figure id="' + self.power.name.toLowerCase() + '" class="circuit element power"><br><br>' +
+                return '<figure id="' + self.power.id + '" class="circuit element power"><br><br>' +
                         self.power.name + " " +
                         self.power.value + "V" +
                         '</figure>';
             }
         }
 
-        function connector(name, e1, e2) {
+        function connector(name, e1, e2, id) {
             this.name = name;
             this.intensity = null;
             this.voltage = null;
             this.e1 = e1;
             this.e2 = e2;
+            this.id = id;
 
             return this;
         }
@@ -169,13 +183,48 @@
         function connectorVM(connector) {
             var self = this;
             self.connector = connector;
+
             self.render = function () {
-                return '<figure id="' + self.connector.name.toLowerCase() + '" class="circuit element connector"><br><br>' +
-                        self.connector.name +
-                        self.connector.intensity +
-                        self.connector.voltage +
-                        '</figure>';
+
+                $('#' + self.connector.e1.id).connections({
+                    to: '#' + self.connector.e2.id,
+                    'class': self.connector.e1.id + '-related-to-' + self.connector.e2.id,
+                    borderClasses: {
+                        top: 'connection-border-top',
+                        right: 'connection-border-right',
+                        bottom: 'connection-border-bottom',
+                        left: 'connection-border-left'
+                    }
+                });
+
+                $('.' + self.connector.e1.id + '-related-to-' + self.connector.e2.id).html(function (i) {
+                    return '<span class="label-c-' + self.connector.e1.id + '-' + self.connector.e2.id + '">I '
+                            + self.connector.intensity + '</span>';
+                });
             }
+        }
+
+        function physicsCalculator(eM) {
+            var self = this;
+
+            self.calculate = function () {
+                if (eM.powers.length === 0)
+                    return;
+                var resistors = Enumerable.From(eM.resistors).Select(function (r) {
+                    return r.value;
+                }).Sum();
+
+                var volts = Enumerable.From(eM.powers).Select(function (p) {
+                    return p.value;
+                }).Sum();
+
+                var intensity = Math.round((volts / resistors) * 100) / 100;
+
+                $(eM.connectors).each(function(conn) {
+                    var el = $(this);
+                    window.console.log(el);
+                });
+            };
         }
 
     </script>

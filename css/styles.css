@@ -448,6 +448,10 @@ th {
 .fuerza-electrica-hilo-muy-largo-cargado .col-md-1 {
   width: 110px !important; }
 
+.circuito-electrico .selected-element {
+  -webkit-box-shadow: 3px 3px 3px green;
+  -moz-box-shadow: 3px 3px 3px green;
+  box-shadow: 0 0 3px green; }
 .circuito-electrico .circuit.element {
   width: 30px;
   height: 30px;
@@ -461,7 +465,7 @@ th {
   border-radius: 50%; }
 .circuito-electrico .circuit.element.connector {
   background-image: url("./img/c.png"); }
-.circuito-electrico #toggle-wiring-mode.wiring-enabled {
+.circuito-electrico #btn-toggle-wiring-mode.wiring-enabled {
   background: #ff0; }
 .circuito-electrico .controls-container {
   margin-top: 10px; }

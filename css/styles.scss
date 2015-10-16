@@ -543,6 +543,12 @@ th {
 // Circuitos
 
 .circuito-electrico {
+  .selected-element {
+    -webkit-box-shadow:3px 3px 3px green;
+    -moz-box-shadow:3px 3px 3px green;
+    box-shadow:0 0 3px green;
+  }
+
   .circuit.element {
     width:30px;
     height:30px;
@@ -561,8 +567,8 @@ th {
     background-image:url('./img/c.png');
   }
 
-  #toggle-wiring-mode { }
-  #toggle-wiring-mode.wiring-enabled {
+  #btn-toggle-wiring-mode { }
+  #btn-toggle-wiring-mode.wiring-enabled {
     background:#ff0;
   }
 
