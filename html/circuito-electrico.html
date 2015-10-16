@@ -198,8 +198,9 @@
                 });
 
                 $('.' + self.connector.e1.id + '-related-to-' + self.connector.e2.id).html(function (i) {
+                    var i = self.connector.intensity != undefined ? self.connector.intensity : '-';
                     return '<span class="label-c-' + self.connector.e1.id + '-' + self.connector.e2.id + '">I '
-                            + self.connector.intensity + '</span>';
+                            + i + '</span>';
                 });
             }
         }
@@ -220,9 +221,10 @@
 
                 var intensity = Math.round((volts / resistors) * 100) / 100;
 
-                $(eM.connectors).each(function(conn) {
-                    var el = $(this);
-                    window.console.log(el);
+                $(eM.connectors).each(function (i, e) {
+                    var conn = e;
+                    var connLabel = $('.label-c-' + conn.e1.id + '-' + conn.e2.id).html(conn.name + ' ' + intensity + ' A');
+                    conn.intensity = intensity;
                 });
             };
         }

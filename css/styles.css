@@ -470,4 +470,8 @@ th {
 .circuito-electrico .controls-container {
   margin-top: 10px; }
 
+.jumbotron {
+  padding-top: 3px !important;
+  padding-bottom: 3px !important; }
+
 /*# sourceMappingURL=styles.css.map */
