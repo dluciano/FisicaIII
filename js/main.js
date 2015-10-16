@@ -14,22 +14,24 @@ var Dimensiones = {
     intensidadCorriente: "A"
 };
 
-function Unidad(nombre, dimension, simbolo) {
+function Unidad(nombre, dimension, simbolo, uDefault) {
     var self = this;
     self.nombre = nombre;
     self.dimension = dimension;
     self.sistema = {};
     self.simbolo = simbolo;
+    self.default = uDefault;
     return self;
 }
 
-function UnidadDerivada(nombre, unidadesNumerador, unidadesDenominador, simbolo) {
+function UnidadDerivada(nombre, unidadesNumerador, unidadesDenominador, simbolo, uDefault) {
     var self = this;
     self.nombre = nombre;
     self.unidadesNumerador = unidadesNumerador;
     self.unidadesDenominador = unidadesDenominador;
     self.simbolo = simbolo;
     self.sistema = {};
+    self.default = uDefault;
     return self;
 }
 
@@ -75,17 +77,17 @@ function RepositorioUnidades() {
 
     self.sistemas = [];
 
-    var amperio = new Unidad("amperio", Dimensiones.intensidadCorriente, "A");
-    var segundo = new Unidad("segundo", Dimensiones.tiempo, "s");
+    var amperio = new Unidad("amperio", Dimensiones.intensidadCorriente, "A", 0);
+    var segundo = new Unidad("segundo", Dimensiones.tiempo, "s", 0);
     var si = new SistemaMedida("internacional")
-        .agregarUnidad(new Unidad("metro", Dimensiones.longitud, "m"))
-        .agregarUnidad(new Unidad("kilogramo", Dimensiones.masa, "Kg"))
+        .agregarUnidad(new Unidad("metro", Dimensiones.longitud, "m", 0))
+        .agregarUnidad(new Unidad("kilogramo", Dimensiones.masa, "Kg", 0))
         .agregarUnidad(segundo)
         .agregarUnidad(amperio);
 
     self.sistemas.push(si);
 
-    si.agregarUnidadDerivada(new UnidadDerivada("culombio", [amperio, segundo], null, "C"));
+    si.agregarUnidadDerivada(new UnidadDerivada("culombio", [amperio, segundo], null, "C", -6));
 
     si.agregarPrefijo(new Prefijo("yotta", "Y", 24));
     si.agregarPrefijo(new Prefijo("zetta", "Z", 21));
@@ -120,7 +122,7 @@ function UnidadesVM(unidad, prefijos) {
     self.unidad = unidad;
     self.opciones = [];
     $(prefijos).each(function (i, p) {
-        self.opciones.push(new Option(p.simbolo + self.unidad.simbolo, p.exponente, p.exponente === 0));
+        self.opciones.push(new Option(p.simbolo + self.unidad.simbolo, p.exponente, p.exponente === self.unidad.default, p.exponente === self.unidad.default));
     });
     return self;
 }
